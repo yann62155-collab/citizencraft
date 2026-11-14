@@ -32,7 +32,8 @@ public class CitizenCraft {
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("1");
+        // optional() : les joueurs sans le mod (Xbox via Citizen Bedrock) peuvent toujours se connecter
+        PayloadRegistrar registrar = event.registrar("1").optional();
         registrar.playToClient(OpenCraftPayload.TYPE, OpenCraftPayload.STREAM_CODEC, OpenCraftPayload::handle);
     }
 }

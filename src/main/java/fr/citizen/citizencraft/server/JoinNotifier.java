@@ -58,6 +58,25 @@ public final class JoinNotifier {
         }
     }
 
+    /** Version texte pour les joueurs sans le mod (Xbox / console via Citizen Bedrock). */
+    public static void sendConsoleBook(ServerPlayer player) {
+        player.sendSystemMessage(Component.literal("✦ Le Livre des Recettes du Royaume ✦").withStyle(s -> s.withColor(GOLD).withBold(true)));
+        player.sendSystemMessage(Component.literal("Le livre illustré n'est disponible que sur PC (mod Citizen Craft). Règles du royaume :")
+                .withStyle(s -> s.withColor(PARCHMENT)));
+        rules(player);
+    }
+
+    private static void rules(ServerPlayer player) {
+        player.sendSystemMessage(Component.literal("  Artefacts, armures, filets de pêche, boîtes aux lettres, lettres, beuglantes, cartons d'envoi et affiches : à la forge.")
+                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
+        player.sendSystemMessage(Component.literal("  Nourriture et bière : à la taverne ou au restaurant.")
+                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
+        player.sendSystemMessage(Component.literal("  Portes à clé et clés : fabriquées uniquement par le menuisier.")
+                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
+        player.sendSystemMessage(Component.literal("  La pêche est réservée aux pêcheurs. Seuls le pêcheur, la taverne et le restaurant peuvent cuisiner le poisson.")
+                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
+    }
+
     private static void send(ServerPlayer player) {
         MutableComponent button = Component.literal("[Ouvrir le livre]").withStyle(s -> s
                 .withColor(GOLD)
@@ -73,14 +92,7 @@ public final class JoinNotifier {
                 .append(Component.literal("/craft").withStyle(s -> s.withColor(GOLD).withBold(true)))
                 .append(Component.literal(" pour consulter toutes les recettes du royaume. ").withStyle(s -> s.withColor(PARCHMENT)))
                 .append(button));
-        player.sendSystemMessage(Component.literal("  Artefacts, armures, filets de pêche, boîtes aux lettres, lettres, cartons d'envoi et affiches : à la forge.")
-                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
-        player.sendSystemMessage(Component.literal("  Nourriture et bière : à la taverne ou au restaurant.")
-                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
-        player.sendSystemMessage(Component.literal("  Portes à clé et clés : fabriquées uniquement par le menuisier.")
-                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
-        player.sendSystemMessage(Component.literal("  La pêche est réservée aux pêcheurs. Seuls le pêcheur, la taverne et le restaurant peuvent cuisiner le poisson.")
-                .withStyle(s -> s.withColor(DARK_RED).withItalic(true)));
+        rules(player);
         player.sendSystemMessage(Component.literal("✦ ─────────────────────────── ✦").withStyle(s -> s.withColor(GOLD)));
     }
 }

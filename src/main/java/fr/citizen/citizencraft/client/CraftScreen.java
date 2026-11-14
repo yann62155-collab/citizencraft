@@ -47,7 +47,7 @@ public class CraftScreen extends Screen {
     private static final int C_SLOT_BORDER = 0xFF5A4630;
 
     private static final String NOTE_FORGE =
-            "Artefacts, armures, filets de pêche, boîtes aux lettres, lettres, cartons d'envoi et affiches doivent être confectionnés à la forge.";
+            "Artefacts, armures, filets de pêche, boîtes aux lettres, lettres, beuglantes, cartons d'envoi et affiches doivent être confectionnés à la forge.";
     private static final String NOTE_TAVERN =
             "Nourriture et bière doivent être préparées à la taverne ou au restaurant.";
     private static final String NOTE_MENUISIER =
@@ -429,6 +429,8 @@ public class CraftScreen extends Screen {
         if (selected.id.getPath().contains("tinted_glass")) {
             heads.add("» Sert à fabriquer et à réparer (enclume) le casque d'éclipse.");
         }
+        String hibou = hibouInfo(selected);
+        if (hibou != null) heads.add("» " + hibou);
         String realismeInfo = RealismeRules.describe(selected.icon);
         if (realismeInfo != null) heads.add("» " + realismeInfo);
         if (RealismeRules.active() && recipe.getType() == RecipeType.CRAFTING) {
@@ -469,6 +471,28 @@ public class CraftScreen extends Screen {
             }
             y += boxH + 3;
         }
+    }
+
+    /** Aide des objets du Hibou Postal (d'apres son README 1.2.0). */
+    private static String hibouInfo(RecipeIndex.Entry e) {
+        if (!e.modId.equals(RecipeIndex.NS_HIBOU)) return null;
+        String p = e.id.getPath();
+        if (p.contains("beuglante")) {
+            return "Lettre hurlante : volière (/hibou), onglet « ‼ Beuglante », ou /hibou beugler. Cri de 100 caractères "
+                    + "+ voix de 20 s (PC). Éclate sur le destinataire (entendue à 24 blocs), seule après 60 s. "
+                    + "Sans beuglante vierge : 1 papier + 1 poudre à canon.";
+        }
+        if (p.contains("letter")) {
+            return "Chaque envoi consomme une lettre vierge. Clic droit avec une lettre vierge : ouvre la volière.";
+        }
+        if (p.contains("parcel")) {
+            return "Carton de 5 emplacements : /hibou colis, ou clic droit avec un carton. Un carton vide est consommé par envoi.";
+        }
+        if (p.contains("mailbox")) {
+            return "Appartient à celui qui la pose (lui seul l'ouvre et la casse). 27 emplacements, retrait seul. "
+                    + "Reçoit le courrier quand vous êtes déconnecté ou que votre besace est pleine.";
+        }
+        return null;
     }
 
     /** Poissons (crus ou cuits) : vanilla + mots-cles dans l'identifiant. */

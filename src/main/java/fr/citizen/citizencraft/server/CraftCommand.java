@@ -25,7 +25,11 @@ public final class CraftCommand {
 
     private static int open(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
-        PacketDistributor.sendToPlayer(player, OpenCraftPayload.INSTANCE);
+        if (player.connection.hasChannel(OpenCraftPayload.TYPE)) {
+            PacketDistributor.sendToPlayer(player, OpenCraftPayload.INSTANCE);
+        } else {
+            JoinNotifier.sendConsoleBook(player); // joueur sans le mod (Xbox / console)
+        }
         return 1;
     }
 }
