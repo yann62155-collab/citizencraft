@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="citizencraft"
+version="1.0.0"
+displayName="Citizen Craft"
+authors="Citizen"
+description='''Livre des Recettes du Royaume : la commande /craft ouvre un menu listant toutes les recettes du jeu et des mods Citizen, avec recherche et categories.'''
+
+[[dependencies.citizencraft]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.215,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.citizencraft]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1]"
+    ordering="NONE"
+    side="BOTH"
